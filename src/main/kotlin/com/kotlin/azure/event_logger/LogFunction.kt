@@ -1,14 +1,14 @@
 package com.kotlin.azure.event_logger
 
+import com.kotlin.azure.event_logger.logger.Logger
+import com.kotlin.azure.event_logger.logger.LoggerFactory
 import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpMethod
 import com.microsoft.azure.functions.HttpRequestMessage
 import com.microsoft.azure.functions.annotation.*
-import mu.KotlinLogging
 import mu.withLoggingContext
 import org.springframework.stereotype.Component
 
-val logger = KotlinLogging.logger {}
 
 @Component
 class LogFunction {
@@ -34,27 +34,36 @@ class LogFunction {
                 "ProcessId" to applicationProperties["process-id"]?.toString()
             )
         ) {
-            logger.info { "TEST SANDER2" }
-            logger.info(mapOf("Subject" to subject)) { "Received Sivi event" }
+            logger.info { "Function LogEvent called" }
+            logger.info(mapOf("Subject" to subject)) { "Received event" }
         }
-        logger.info { "TEST SANDER3" }
-    }
+        logger.info { "Function LogEvent called" }    }
 
     @FunctionName("LogHttp")
     fun handleHttp(
         @HttpTrigger(
             name = "request",
-            methods = [HttpMethod.GET],
+            methods = [HttpMethod.POST],
             authLevel = AuthorizationLevel.ANONYMOUS,
             route = "/log-level"
         ) request: HttpRequestMessage<String>,
         context: ExecutionContext
     ) {
-            logger.trace { "" }
-            logger.debug { "" }
-            logger.info { "" }
-            logger.warn { "" }
-            logger.error { "" }
+        withLoggingContext(
+            mapOf(
+                "http_method" to request.httpMethod.toString(),
+                "http_uri" to request.uri.toString(),
+            )
+        ) {
+            logger.verbose { "verbose" }
+            logger.info { "info" }
+            logger.warn { "warn" }
+            logger.error { "error" }
+            logger.critical { "critical" }
+        }
     }
 
 }
+
+val Any.logger: Logger
+    get() = LoggerFactory.getLogger(this::class)
