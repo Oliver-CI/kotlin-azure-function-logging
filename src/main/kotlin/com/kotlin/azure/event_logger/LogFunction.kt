@@ -37,7 +37,8 @@ class LogFunction {
             logger.info { "Function LogEvent called" }
             logger.info(mapOf("Subject" to subject)) { "Received event" }
         }
-        logger.info { "Function LogEvent called" }    }
+        logger.info { "Function LogEvent called" }
+    }
 
     @FunctionName("LogHttp")
     fun handleHttp(
@@ -62,7 +63,6 @@ class LogFunction {
             logger.critical { "critical" }
         }
     }
-
 }
 
 val Any.logger: Logger
