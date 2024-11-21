@@ -46,21 +46,22 @@ class LogFunction {
             name = "request",
             methods = [HttpMethod.POST],
             authLevel = AuthorizationLevel.ANONYMOUS,
-            route = "/log-level"
+            route = "log-message"
         ) request: HttpRequestMessage<String>,
         context: ExecutionContext
     ) {
+        val message = request.body
         withLoggingContext(
             mapOf(
                 "http_method" to request.httpMethod.toString(),
                 "http_uri" to request.uri.toString(),
             )
         ) {
-            logger.verbose { "verbose" }
-            logger.info { "info" }
-            logger.warn { "warn" }
-            logger.error { "error" }
-            logger.critical { "critical" }
+            logger.verbose { "verbose: $message" }
+            logger.info { "info: $message" }
+            logger.warn { "warn: $message" }
+            logger.error { "error: $message" }
+            logger.critical { "critical: $message" }
         }
     }
 }
