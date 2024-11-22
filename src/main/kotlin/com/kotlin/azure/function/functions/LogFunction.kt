@@ -1,5 +1,6 @@
 package com.kotlin.azure.function.functions
 
+import com.azure.core.util.logging.ClientLogger
 import com.kotlin.azure.function.logger.Logger
 import com.kotlin.azure.function.logger.LoggerFactory
 import com.microsoft.azure.functions.ExecutionContext
@@ -14,6 +15,24 @@ val kLogger = KotlinLogging.logger {}
 
 @Component
 class LogFunction {
+
+    @FunctionName("ClientLogger")
+    fun handleClientLogger(
+        @HttpTrigger(
+            name = "request",
+            methods = [HttpMethod.POST],
+            authLevel = AuthorizationLevel.ANONYMOUS,
+            route = "client-logger"
+        ) request: HttpRequestMessage<String>,
+        context: ExecutionContext
+    ) {
+        val message = request.body
+        val logger = ClientLogger(this::class.java)
+        logger.atVerbose().addKeyValue("verbose-dimension", "very verbose").log {"client logger verbose: $message"}
+        logger.atInfo().addKeyValue("info-dimension", "informational").log { "client logger info: $message" }
+        logger.atWarning().addKeyValue("warn-dimension", "warned").log { "client logger warn: $message" }
+        logger.atError().addKeyValue("error-dimension", "erroneous").log { "client logger error: $message" }
+    }
 
     @FunctionName("CustomAppLogger")
     fun handleCustomAppLogger(
@@ -55,7 +74,6 @@ class LogFunction {
         context.logger.info { "CONTEXT LOGGER info: $message" }
         context.logger.warning("CONTEXT LOGGER warning: $message")
         context.logger.severe("CONTEXT LOGGER severe: $message")
-        context.traceContext.attributes["custom-attribute"] = "custom-value"
     }
 
     @FunctionName("ContextLoggerWithDimensions")
@@ -75,6 +93,7 @@ class LogFunction {
         context.logger.info { "CONTEXT LOGGER info: $message" }
         context.logger.warning("CONTEXT LOGGER warning: $message")
         context.logger.severe("CONTEXT LOGGER severe: $message")
+        // map is immutable
         context.traceContext.attributes["custom-attribute"] = "custom-value"
     }
 
