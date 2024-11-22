@@ -1,4 +1,4 @@
-package com.kotlin.azure.event_logger
+package com.kotlin.azure.function
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

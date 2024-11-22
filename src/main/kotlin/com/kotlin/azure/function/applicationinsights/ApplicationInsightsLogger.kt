@@ -1,8 +1,8 @@
-package com.kotlin.azure.event_logger.applicationinsights
+package com.kotlin.azure.function.applicationinsights
 
-import com.kotlin.azure.event_logger.logger.Logger
-import com.kotlin.azure.event_logger.logger.Metrics
-import com.kotlin.azure.event_logger.logger.Properties
+import com.kotlin.azure.function.logger.Logger
+import com.kotlin.azure.function.logger.Metrics
+import com.kotlin.azure.function.logger.Properties
 import com.microsoft.applicationinsights.TelemetryClient
 import com.microsoft.applicationinsights.telemetry.EventTelemetry
 import com.microsoft.applicationinsights.telemetry.MetricTelemetry

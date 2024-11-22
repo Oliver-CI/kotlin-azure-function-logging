@@ -1,7 +1,7 @@
-package com.kotlin.azure.event_logger.applicationinsights
+package com.kotlin.azure.function.applicationinsights
 
 import com.microsoft.applicationinsights.TelemetryClient
-import com.kotlin.azure.event_logger.logger.LoggerFactory
+import com.kotlin.azure.function.logger.LoggerFactory
 import kotlin.reflect.KClass
 
 class ApplicationInsightsLoggerFactory(private val telemetryClient: TelemetryClient) : LoggerFactory {

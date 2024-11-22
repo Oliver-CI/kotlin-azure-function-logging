@@ -1,7 +1,7 @@
-package com.kotlin.azure.event_logger
+package com.kotlin.azure.function.functions
 
-import com.kotlin.azure.event_logger.logger.Logger
-import com.kotlin.azure.event_logger.logger.LoggerFactory
+import com.kotlin.azure.function.logger.Logger
+import com.kotlin.azure.function.logger.LoggerFactory
 import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpMethod
 import com.microsoft.azure.functions.HttpRequestMessage

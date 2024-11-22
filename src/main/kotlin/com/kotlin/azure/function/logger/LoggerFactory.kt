@@ -1,4 +1,4 @@
-package com.kotlin.azure.event_logger.logger
+package com.kotlin.azure.function.logger
 
 import java.util.function.Function
 import kotlin.reflect.KClass

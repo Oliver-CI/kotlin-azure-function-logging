@@ -1,4 +1,4 @@
-package com.kotlin.azure.event_logger.logger
+package com.kotlin.azure.function.logger
 
 typealias Properties = Map<String, Any?>
 typealias Metrics = Map<String, Double?>

@@ -105,7 +105,7 @@
                     <appSettings>
                         <property>
                             <name>MAIN_CLASS</name>
-                            <value>com.kotlin.azure.event_logger.EventLoggerApplication</value>
+                            <value>com.kotlin.azure.function.EventLoggerApplication</value>
                         </property>
                     </appSettings>
                 </configuration>
