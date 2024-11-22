@@ -51,6 +51,7 @@ class LogFunction {
                 "http_uri" to request.uri.toString(),
             )
         ) {
+            val logger = LoggerFactory.getLogger(this::class)
             logger.verbose { "custom verbose: $message" }
             logger.info { "custom info: $message" }
             logger.warn { "custom warn: $message" }
@@ -134,6 +135,3 @@ class LogFunction {
     }
 
 }
-
-val Any.logger: Logger
-    get() = LoggerFactory.getLogger(this::class)
