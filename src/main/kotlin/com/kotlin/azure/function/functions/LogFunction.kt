@@ -55,6 +55,27 @@ class LogFunction {
         context.logger.info { "CONTEXT LOGGER info: $message" }
         context.logger.warning("CONTEXT LOGGER warning: $message")
         context.logger.severe("CONTEXT LOGGER severe: $message")
+        context.traceContext.attributes["custom-attribute"] = "custom-value"
+    }
+
+    @FunctionName("ContextLoggerWithDimensions")
+    fun handleContextLoggerWithDimensions(
+        @HttpTrigger(
+            name = "request",
+            methods = [HttpMethod.POST],
+            authLevel = AuthorizationLevel.ANONYMOUS,
+            route = "context-logger-dimensions"
+        ) request: HttpRequestMessage<String>,
+        context: ExecutionContext
+    ) {
+        val message = request.body
+        context.traceContext.attributes["custom-attribute"] = "custom-value"
+        context.logger.info { "CONTEXT LOGGER traceState: ${context.traceContext.tracestate}" }
+        context.logger.fine("CONTEXT LOGGER fine: $message")
+        context.logger.info { "CONTEXT LOGGER info: $message" }
+        context.logger.warning("CONTEXT LOGGER warning: $message")
+        context.logger.severe("CONTEXT LOGGER severe: $message")
+        context.traceContext.attributes["custom-attribute"] = "custom-value"
     }
 
     @FunctionName("KotlinLogger")
