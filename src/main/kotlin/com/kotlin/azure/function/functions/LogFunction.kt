@@ -1,14 +1,13 @@
 package com.kotlin.azure.function.functions
 
 import com.azure.core.util.logging.ClientLogger
-import com.kotlin.azure.function.logger.Logger
-import com.kotlin.azure.function.logger.LoggerFactory
 import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpMethod
 import com.microsoft.azure.functions.HttpRequestMessage
-import com.microsoft.azure.functions.annotation.*
+import com.microsoft.azure.functions.annotation.AuthorizationLevel
+import com.microsoft.azure.functions.annotation.FunctionName
+import com.microsoft.azure.functions.annotation.HttpTrigger
 import mu.KotlinLogging
-import mu.withLoggingContext
 import org.springframework.stereotype.Component
 
 val kLogger = KotlinLogging.logger {}
@@ -50,32 +49,6 @@ class LogFunction {
         logger.atInfo().addKeyValue("info-dimension", "informational").log { "client logger info: $message" }
         logger.atWarning().addKeyValue("warn-dimension", "warned").log { "client logger warn: $message" }
         logger.atError().addKeyValue("error-dimension", "erroneous").log { "client logger error: $message" }
-    }
-
-    @FunctionName("CustomAppLogger")
-    fun handleCustomAppLogger(
-        @HttpTrigger(
-            name = "request",
-            methods = [HttpMethod.POST],
-            authLevel = AuthorizationLevel.ANONYMOUS,
-            route = "custom-app-logger"
-        ) request: HttpRequestMessage<String>,
-        context: ExecutionContext
-    ) {
-        val message = request.body
-        withLoggingContext(
-            mapOf(
-                "http_method" to request.httpMethod.toString(),
-                "http_uri" to request.uri.toString(),
-            )
-        ) {
-            val logger = LoggerFactory.getLogger(this::class)
-            logger.verbose { "custom verbose: $message" }
-            logger.info { "custom info: $message" }
-            logger.warn { "custom warn: $message" }
-            logger.error { "custom error: $message" }
-            logger.critical { "custom critical: $message" }
-        }
     }
 
     @FunctionName("ContextLogger")

@@ -4,13 +4,14 @@
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-               [%thread] %-5level %logger{36} - %msg%n
+                [%thread] %-5level %logger{36} - %msg%n
             </pattern>
         </encoder>
     </appender>
     <appender name="OpenTelemetry" class="io.opentelemetry.instrumentation.logback.appender.v1_0.OpenTelemetryAppender">
         <captureExperimentalAttributes>true</captureExperimentalAttributes>
         <captureMdcAttributes>*</captureMdcAttributes>
+        <captureKeyValuePairAttributes>true</captureKeyValuePairAttributes>
     </appender>
 
     <root level="INFO">
