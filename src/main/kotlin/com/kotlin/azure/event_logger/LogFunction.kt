@@ -13,33 +13,6 @@ import org.springframework.stereotype.Component
 @Component
 class LogFunction {
 
-    @FunctionName("LogEvent")
-    fun handleEvent(
-        @ServiceBusTopicTrigger(
-            name = "message",
-            topicName = "log-topic",
-            subscriptionName = "sub-event-logger",
-            connection = "AzureWebJobsServiceBus"
-        ) message: String,
-        @BindingName("CorrelationId") correlationId: String,
-        @BindingName("MessageId") messageId: String,
-        @BindingName("Subject") subject: String,
-        @BindingName("ApplicationProperties") applicationProperties: Map<String, Any>,
-        context: ExecutionContext
-    ) {
-        withLoggingContext(
-            mapOf(
-                "CorrelationId" to correlationId,
-                "MessageId" to messageId,
-                "ProcessId" to applicationProperties["process-id"]?.toString()
-            )
-        ) {
-            logger.info { "Function LogEvent called" }
-            logger.info(mapOf("Subject" to subject)) { "Received event" }
-        }
-        logger.info { "Function LogEvent called" }
-    }
-
     @FunctionName("LogHttp")
     fun handleHttp(
         @HttpTrigger(
