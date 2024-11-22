@@ -13,23 +13,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>event-logger</name>
     <description>Demo project for Kotlin azure function</description>
-    <url/>
-    <licenses>
-        <license/>
-    </licenses>
-    <developers>
-        <developer/>
-    </developers>
-    <scm>
-        <connection/>
-        <developerConnection/>
-        <tag/>
-        <url/>
-    </scm>
     <properties>
         <java.version>17</java.version>
         <kotlin.version>1.9.25</kotlin.version>
         <spring-cloud-azure.version>5.18.0</spring-cloud-azure.version>
+        <functionAppName>func-event-logging</functionAppName>
     </properties>
     <dependencies>
         <dependency>
@@ -70,18 +58,6 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.azure.spring</groupId>
-                <artifactId>spring-cloud-azure-dependencies</artifactId>
-                <version>${spring-cloud-azure.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
@@ -89,6 +65,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -114,9 +97,12 @@
                 <artifactId>azure-functions-maven-plugin</artifactId>
                 <version>1.36.0</version>
                 <configuration>
-                    <resourceGroup>rg-azl-mart-oliver</resourceGroup>
-                    <appName>func-event-logging</appName>
+                    <appName>${functionAppName}</appName>
                     <region>westeurope</region>
+                    <runtime>
+                        <os>linux</os>
+                        <javaVersion>${java.version}</javaVersion>
+                    </runtime>
                 </configuration>
                 <executions>
                     <execution>
