@@ -118,6 +118,14 @@
                     <appName>func-event-logging</appName>
                     <region>westeurope</region>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>package-functions</id>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
