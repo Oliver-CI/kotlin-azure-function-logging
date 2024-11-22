@@ -1,7 +1,6 @@
 package com.kotlin.azure.function.functions
 
 import com.azure.core.util.logging.ClientLogger
-import com.kotlin.azure.function.logger.LoggerFactory
 import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpMethod
 import com.microsoft.azure.functions.HttpRequestMessage
@@ -29,7 +28,6 @@ class SpanFunction {
         val clientLogger = ClientLogger(this::class.java)
         val contextLogger = context.logger
         val kotlinLogger = KotlinLogging.logger {}
-        val customLogger = LoggerFactory.getLogger(this::class)
 
         val span = Span.current()
         val attributeKey = AttributeKey.stringKey("custom-string-attribute")
@@ -39,6 +37,5 @@ class SpanFunction {
         clientLogger.warning("client-logger warning: $message")
         contextLogger.warning("context-logger warning: $message")
         kotlinLogger.warn { "kotlin-logger warning: $message" }
-        customLogger.warn { "custom-logger warning: $message" }
     }
 }
