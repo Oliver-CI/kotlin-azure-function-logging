@@ -103,6 +103,12 @@
                         <os>linux</os>
                         <javaVersion>${java.version}</javaVersion>
                     </runtime>
+                    <appSettings>
+                        <property>
+                            <name>MAIN_CLASS</name>
+                            <value>com.kotlin.azure.event_logger.EventLoggerApplication</value>
+                        </property>
+                    </appSettings>
                 </configuration>
                 <executions>
                     <execution>
