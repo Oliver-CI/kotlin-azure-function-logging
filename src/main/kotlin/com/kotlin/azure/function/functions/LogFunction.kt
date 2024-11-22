@@ -16,6 +16,24 @@ val kLogger = KotlinLogging.logger {}
 @Component
 class LogFunction {
 
+    @FunctionName("JavaLogger")
+    fun handleJavaLogger(
+        @HttpTrigger(
+            name = "request",
+            methods = [HttpMethod.POST],
+            authLevel = AuthorizationLevel.ANONYMOUS,
+            route = "java-logger"
+        ) request: HttpRequestMessage<String>,
+        context: ExecutionContext
+    ) {
+        val message = request.body
+        val logger = java.util.logging.Logger.getLogger(this::class.java.name)
+        logger.fine("java logger fine: $message")
+        logger.info("java logger info: $message")
+        logger.warning("java logger warn: $message")
+        logger.severe("java logger error: $message")
+    }
+
     @FunctionName("ClientLogger")
     fun handleClientLogger(
         @HttpTrigger(
@@ -28,7 +46,7 @@ class LogFunction {
     ) {
         val message = request.body
         val logger = ClientLogger(this::class.java)
-        logger.atVerbose().addKeyValue("verbose-dimension", "very verbose").log {"client logger verbose: $message"}
+        logger.atVerbose().addKeyValue("verbose-dimension", "very verbose").log { "client logger verbose: $message" }
         logger.atInfo().addKeyValue("info-dimension", "informational").log { "client logger info: $message" }
         logger.atWarning().addKeyValue("warn-dimension", "warned").log { "client logger warn: $message" }
         logger.atError().addKeyValue("error-dimension", "erroneous").log { "client logger error: $message" }
