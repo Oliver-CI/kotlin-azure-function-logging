@@ -102,11 +102,6 @@
                 <version>1.36.0</version>
                 <configuration>
                     <appName>${functionAppName}</appName>
-                    <region>westeurope</region>
-                    <runtime>
-                        <os>linux</os>
-                        <javaVersion>${java.version}</javaVersion>
-                    </runtime>
                     <appSettings>
                         <property>
                             <name>MAIN_CLASS</name>
