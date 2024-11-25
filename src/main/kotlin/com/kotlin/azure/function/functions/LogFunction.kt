@@ -8,6 +8,7 @@ import com.microsoft.azure.functions.annotation.FunctionName
 import com.microsoft.azure.functions.annotation.HttpTrigger
 import mu.KotlinLogging
 import mu.withLoggingContext
+import org.slf4j.MDC
 import org.springframework.stereotype.Component
 
 val kLogger = KotlinLogging.logger {}
@@ -29,16 +30,11 @@ class LogFunction {
     ) {
         val message = request.body
         val logger = java.util.logging.Logger.getLogger(this::class.java.name)
-        withLoggingContext(
-            mapOf(
-                MDC_KEY to "java-logger"
-            )
-        ) {
-            logger.fine("java logger fine: $message")
-            logger.info("java logger info: $message")
-            logger.warning("java logger warn: $message")
-            logger.severe("java logger error: $message")
-        }
+        MDC.put(MDC_KEY, "java-logger")
+        logger.fine("java logger fine: $message")
+        logger.info("java logger info: $message")
+        logger.warning("java logger warn: $message")
+        logger.severe("java logger error: $message")
     }
 
     @FunctionName("KotlinLogger")
@@ -77,15 +73,10 @@ class LogFunction {
         context: ExecutionContext
     ) {
         val message = request.body
-        withLoggingContext(
-            mapOf(
-                MDC_KEY to "context-logger"
-            )
-        ) {
-            context.logger.fine("CONTEXT LOGGER fine: $message")
-            context.logger.info { "CONTEXT LOGGER info: $message" }
-            context.logger.warning("CONTEXT LOGGER warning: $message")
-            context.logger.severe("CONTEXT LOGGER severe: $message")
-        }
+        MDC.put(MDC_KEY, "context-logger")
+        context.logger.fine("CONTEXT LOGGER fine: $message")
+        context.logger.info { "CONTEXT LOGGER info: $message" }
+        context.logger.warning("CONTEXT LOGGER warning: $message")
+        context.logger.severe("CONTEXT LOGGER severe: $message")
     }
 }
