@@ -1,7 +1,5 @@
 package com.kotlin.azure.function.functions
 
-import com.azure.core.util.logging.ClientLogger
-import com.kotlin.azure.function.logger.Logger
 import com.kotlin.azure.function.logger.LoggerFactory
 import com.microsoft.azure.functions.ExecutionContext
 import com.microsoft.azure.functions.HttpMethod
@@ -32,50 +30,6 @@ class LogFunction {
         logger.info("java logger info: $message")
         logger.warning("java logger warn: $message")
         logger.severe("java logger error: $message")
-    }
-
-    @FunctionName("ClientLogger")
-    fun handleClientLogger(
-        @HttpTrigger(
-            name = "request",
-            methods = [HttpMethod.POST],
-            authLevel = AuthorizationLevel.ANONYMOUS,
-            route = "client-logger"
-        ) request: HttpRequestMessage<String>,
-        context: ExecutionContext
-    ) {
-        val message = request.body
-        val logger = ClientLogger(this::class.java)
-        logger.atVerbose().addKeyValue("verbose-dimension", "very verbose").log { "client logger verbose: $message" }
-        logger.atInfo().addKeyValue("info-dimension", "informational").log { "client logger info: $message" }
-        logger.atWarning().addKeyValue("warn-dimension", "warned").log { "client logger warn: $message" }
-        logger.atError().addKeyValue("error-dimension", "erroneous").log { "client logger error: $message" }
-    }
-
-    @FunctionName("CustomAppLogger")
-    fun handleCustomAppLogger(
-        @HttpTrigger(
-            name = "request",
-            methods = [HttpMethod.POST],
-            authLevel = AuthorizationLevel.ANONYMOUS,
-            route = "custom-app-logger"
-        ) request: HttpRequestMessage<String>,
-        context: ExecutionContext
-    ) {
-        val message = request.body
-        withLoggingContext(
-            mapOf(
-                "http_method" to request.httpMethod.toString(),
-                "http_uri" to request.uri.toString(),
-            )
-        ) {
-            val logger = LoggerFactory.getLogger(this::class)
-            logger.verbose { "custom verbose: $message" }
-            logger.info { "custom info: $message" }
-            logger.warn { "custom warn: $message" }
-            logger.error { "custom error: $message" }
-            logger.critical { "custom critical: $message" }
-        }
     }
 
     @FunctionName("ContextLogger")
@@ -150,6 +104,18 @@ class LogFunction {
         kLogger.atInfo().addKeyValue("info-dimension", "informational").log { "k-logger-dimension info: $message" }
         kLogger.atWarn().addKeyValue("warn-dimension", "warned").log { "k-logger-dimension warn: $message" }
         kLogger.atError().addKeyValue("error-dimension", "erroneous").log { "k-logger-dimension error: $message" }
+        withLoggingContext(
+            mapOf(
+                "custom-attribute" to "custom-value"
+            )
+        ) {
+            kLogger.trace { "k-logger-dimension trace : $message" }
+            kLogger.debug { "k-logger-dimension debug : $message" }
+            kLogger.info { "k-logger-dimension info : $message" }
+            kLogger.warn { "k-logger-dimension warn : $message" }
+            kLogger.error { "k-logger-dimension error : $message" }
+        }
+
     }
 
 }
