@@ -137,10 +137,15 @@
                 <version>1.36.0</version>
                 <configuration>
                     <appName>${functionAppName}</appName>
+                    <hostJson>${project.basedir}/src/main/resources/host.json</hostJson>
                     <appSettings>
                         <property>
                             <name>MAIN_CLASS</name>
                             <value>com.kotlin.azure.function.EventLoggerApplication</value>
+                        </property>
+                        <property>
+                            <name>APPLICATIONINSIGHTS_CONFIGURATION_FILE</name>
+                            <value>${project.basedir}/src/main/resources/applicationinsights.json</value>
                         </property>
                     </appSettings>
                 </configuration>

@@ -1,0 +1,13 @@
+{
+  "connectionString": "env:APPLICATIONINSIGHTS_CONNECTION_STRING",
+  "instrumentation": {
+    "logging": {
+      "level": "INFO"
+    }
+  },
+  "roles": [
+    {
+      "name": "func-event-logging"
+    }
+  ]
+}
