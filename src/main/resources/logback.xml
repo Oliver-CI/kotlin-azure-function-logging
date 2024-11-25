@@ -40,7 +40,12 @@
         </encoder>
     </appender>
 
+    <appender name="aiAppender" class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
+        <instrumentationKey>${APPINSIGHTS_INSTRUMENTATIONKEY}</instrumentationKey>
+    </appender>
+
     <root level="INFO">
+        <appender-ref ref="aiAppender"/>
         <appender-ref ref="json"/>
     </root>
 
