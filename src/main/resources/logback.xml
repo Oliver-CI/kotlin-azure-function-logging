@@ -1,9 +1,6 @@
 <configuration>
     <appender name="aiAppender" class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
         <instrumentationKey>${APPINSIGHTS_INSTRUMENTATIONKEY}</instrumentationKey>
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
     </appender>
 
     <root>
