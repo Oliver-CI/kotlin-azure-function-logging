@@ -1,12 +1,12 @@
 <configuration>
     <appender name="aiAppender" class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
         <instrumentationKey>${APPINSIGHTS_INSTRUMENTATIONKEY}</instrumentationKey>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
     </appender>
 
-    <root level="ERROR">
-        <appender-ref ref="aiAppender"/>
+    <root>
+        <appender-ref ref="aiAppender" />
     </root>
-    <logger name="com.kotlin.azure.function.functions" level="DEBUG">
-        <appender-ref ref="aiAppender"/>
-    </logger>
 </configuration>
