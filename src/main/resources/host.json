@@ -9,7 +9,7 @@
     "logLevel": {
       "default": "Trace",
       "Function": "Trace",
-      "Host": "Trace"
+      "Worker": "Trace"
     }
   }
 }
