@@ -5,10 +5,11 @@
     "version": "[4.0.0, 5.0.0)"
   },
   "logging": {
+    "fileLoggingMode": "always",
     "logLevel": {
       "default": "Warning",
       "Function": "Trace",
-      "Host": "Trace"
+      "Host": "Information"
     }
   }
 }
