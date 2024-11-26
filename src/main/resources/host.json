@@ -7,9 +7,9 @@
   "logging": {
     "fileLoggingMode": "always",
     "logLevel": {
-      "default": "Warning",
+      "default": "Trace",
       "Function": "Trace",
-      "Host": "Information"
+      "Host": "Trace"
     }
   }
 }
