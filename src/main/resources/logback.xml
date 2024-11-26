@@ -3,7 +3,10 @@
         <instrumentationKey>${APPINSIGHTS_INSTRUMENTATIONKEY}</instrumentationKey>
     </appender>
 
-    <root>
+    <root level="WARN">
         <appender-ref ref="aiAppender" />
     </root>
+    <logger name="com.kotlin.azure.function" level="TRACE">
+        <appender-ref ref="aiAppender" />
+    </logger>
 </configuration>
