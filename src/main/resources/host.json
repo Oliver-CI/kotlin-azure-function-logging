@@ -7,7 +7,7 @@
   "logging": {
     "logLevel": {
       "default": "Warning",
-      "Function": "Verbose",
+      "Function": "Trace",
       "Host": "Error",
       "Host.Aggregator": "Information"
     }
