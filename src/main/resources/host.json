@@ -3,13 +3,5 @@
   "extensionBundle": {
     "id": "Microsoft.Azure.Functions.ExtensionBundle",
     "version": "[4.0.0, 5.0.0)"
-  },
-  "logging": {
-    "fileLoggingMode": "always",
-    "logLevel": {
-      "default": "Trace",
-      "Function": "Trace",
-      "Worker": "Trace"
-    }
   }
 }
