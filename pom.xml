@@ -17,7 +17,7 @@
         <java.version>17</java.version>
         <kotlin.version>1.9.25</kotlin.version>
         <spring-cloud-azure.version>5.18.0</spring-cloud-azure.version>
-        <functionAppName>func-event-logging</functionAppName>
+        <functionAppName>func-azl-sandbox-event-logger</functionAppName>
     </properties>
     <dependencies>
         <dependency>
