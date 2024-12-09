@@ -42,10 +42,15 @@ class DurableFanInFanOutFunctions {
         @DurableOrchestrationTrigger(name = "ctx") ctx: TaskOrchestrationContext,
         context: ExecutionContext
     ): Long {
-        val tasks = listOf(43L, 44L, 45L, 46L).map { input ->
-            ctx.callActivity("FibonacciActivity", input, Result::class.java)
+        var results: List<Result<*>> = emptyList()
+        try {
+            results = listOf(43L, 44L, 45L, 46L)
+                .map { input -> ctx.callActivity("FibonacciActivity", input, Result::class.java) }
+                .map { it.await() }
+        } catch (e: Exception) {
+            context.logger.severe("${e.javaClass.name} in fanInFanOutOrchestrator: ${e.message}")
         }
-        val results = ctx.allOf(tasks).await()
+
         val result = results
             .filter { it.isSuccess }
             .map { it.getOrNull() as Long }
