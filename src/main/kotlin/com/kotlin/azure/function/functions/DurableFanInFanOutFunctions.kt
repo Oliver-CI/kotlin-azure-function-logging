@@ -12,6 +12,7 @@ import com.microsoft.durabletask.azurefunctions.DurableActivityTrigger
 import com.microsoft.durabletask.azurefunctions.DurableClientContext
 import com.microsoft.durabletask.azurefunctions.DurableClientInput
 import com.microsoft.durabletask.azurefunctions.DurableOrchestrationTrigger
+import com.microsoft.durabletask.interruption.OrchestratorBlockedException
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -47,6 +48,9 @@ class DurableFanInFanOutFunctions {
             results = listOf(43L, 44L, 45L, 46L)
                 .map { input -> ctx.callActivity("FibonacciActivity", input, Result::class.java) }
                 .map { it.await() }
+        } catch (e: OrchestratorBlockedException) {
+            // This exception is expected when the orchestrator is blocked
+            throw e
         } catch (e: Exception) {
             context.logger.severe("${e.javaClass.name} in fanInFanOutOrchestrator: ${e.message}")
         }
