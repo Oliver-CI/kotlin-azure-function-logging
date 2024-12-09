@@ -37,10 +37,10 @@ class DurableFunction {
     fun startOrchestration(
         @HttpTrigger(
             name = "req",
-            methods = [HttpMethod.GET, HttpMethod.POST],
+            methods = [HttpMethod.POST],
             authLevel = AuthorizationLevel.ANONYMOUS,
             route = "start-durable-orchestration"
-        ) request: HttpRequestMessage<Optional<String?>?>?,
+        ) request: HttpRequestMessage<String>,
         @DurableClientInput(name = "durableContext") durableContext: DurableClientContext,
         context: ExecutionContext
     ): HttpResponseMessage {
