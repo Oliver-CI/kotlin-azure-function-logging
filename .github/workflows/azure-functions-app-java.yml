@@ -22,7 +22,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_NAME: 'func-azl-sandbox-event-logger'   # set this to your function app name on Azure
+  AZURE_FUNCTIONAPP_NAME: 'func-sb-durable-funtion'   # set this to your function app name on Azure
   POM_XML_DIRECTORY: '.'                    # set this to the directory which contains pom.xml file
   DISTRIBUTION: 'zulu'                      # set this to the java version to use (e.g. 'zulu', 'temurin', 'microsoft')
   JAVA_VERSION: '17'                        # set this to the java version to use (e.g. '8', '11', '17')

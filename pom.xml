@@ -17,7 +17,7 @@
         <java.version>17</java.version>
         <kotlin.version>1.9.25</kotlin.version>
         <spring-cloud-azure.version>5.18.0</spring-cloud-azure.version>
-        <functionAppName>func-azl-sandbox-event-logger</functionAppName>
+        <functionAppName>func-sb-durable-funtion</functionAppName>
     </properties>
     <dependencies>
         <dependency>
@@ -48,6 +48,11 @@
             <groupId>com.microsoft.azure</groupId>
             <artifactId>applicationinsights-logging-logback</artifactId>
             <version>2.6.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft</groupId>
+            <artifactId>durabletask-azure-functions</artifactId>
+            <version>1.5.0</version>
         </dependency>
 
         <dependency>
