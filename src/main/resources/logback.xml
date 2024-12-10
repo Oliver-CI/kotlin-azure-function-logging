@@ -2,10 +2,10 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
-            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-                <level>OFF</level>
-            </filter>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>OFF</level>
+        </filter>
     </appender>
     <root level="WARN">
         <appender-ref ref="STDOUT" />
