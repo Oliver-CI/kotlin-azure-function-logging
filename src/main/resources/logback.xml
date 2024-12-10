@@ -1,9 +1,16 @@
 <configuration>
-    <appender name="aiAppender" class="com.microsoft.applicationinsights.logback.ApplicationInsightsAppender">
-        <instrumentationKey>${APPINSIGHTS_INSTRUMENTATIONKEY}</instrumentationKey>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>OFF</level>
+            </filter>
+        </encoder>
     </appender>
-
-    <logger name="com.kotlin.azure.function" level="TRACE">
-        <appender-ref ref="aiAppender" />
+    <root level="WARN">
+        <appender-ref ref="STDOUT" />
+    </root>
+    <logger name="com.kotlin.azure.function.functions" level="TRACE">
+        <appender-ref ref="STDOUT" />
     </logger>
 </configuration>
