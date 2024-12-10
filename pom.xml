@@ -46,7 +46,7 @@
 
         <dependency>
             <groupId>com.microsoft.azure</groupId>
-            <artifactId>applicationinsights-logging-logback</artifactId>
+            <artifactId>applicationinsights-core</artifactId>
             <version>2.6.4</version>
         </dependency>
 
@@ -114,6 +114,14 @@
                         <property>
                             <name>APPLICATIONINSIGHTS_ENABLE_AGENT</name>
                             <value>true</value>
+                        </property>
+                        <property>
+                            <name>APPLICATIONINSIGHTS_INSTRUMENTATION_LOGGING_LEVEL</name>
+                            <value>DEBUG</value>
+                        </property>
+                        <property>
+                            <name>APPLICATIONINSIGHTS_SELF_DIAGNOSTICS_LEVEL</name>
+                            <value>WARN</value>
                         </property>
                     </appSettings>
                 </configuration>
