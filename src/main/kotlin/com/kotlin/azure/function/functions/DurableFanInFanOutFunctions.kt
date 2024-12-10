@@ -45,9 +45,14 @@ class DurableFanInFanOutFunctions {
     ): Long {
         var results: List<Result<*>> = emptyList()
         try {
-            results = listOf(43L, 44L, 45L, 46L)
+            val tasks = listOf(43L, 44L, 45L, 46L)
                 .map { input -> ctx.callActivity("FibonacciActivity", input, Result::class.java) }
-                .map { it.await() }
+            results = ctx.allOf(tasks).await()
+            tasks.forEach {
+                context.logger.info("task: $it")
+                context.logger.info(it.isDone.toString())
+                context.logger.info(it.isCancelled.toString())
+            }
         } catch (e: OrchestratorBlockedException) {
             // This exception is expected when the orchestrator is blocked
             throw e
